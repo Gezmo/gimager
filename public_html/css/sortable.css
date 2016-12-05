@@ -1,0 +1,28 @@
+/*
+#sortable {
+	list-style-type: none;
+	background-color: #F5F5F5;
+    border-radius: 20px 20px 20px 20px;
+	border: 1px solid #F26A02;
+    border-bottom:5px solid #F26A02;
+    margin:10px 0px 10px 0px;
+	padding: 20px;
+}
+
+#sortable li {
+	border-bottom:solid 1px #DDDFE2;
+	cursor: pointer;
+}
+
+#sortable li:hover {
+	color: #F26A02;
+}
+
+#sortable table {
+	width:100%;
+}	
+*/
+
+.sortable-row {
+	cursor: pointer;
+}

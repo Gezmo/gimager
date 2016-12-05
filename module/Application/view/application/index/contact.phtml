@@ -1,0 +1,34 @@
+<h1>Contact</h1>
+<p>
+	<?php echo $message; ?>
+</p>
+
+<?php
+	if ( $showForm ) {
+?>		
+<div class="form">
+	<h2>Our form</h2>
+    <form method="post" action="/contact" class="form">
+        <table>
+            <tr>
+                <td class="label">Your name</td>
+                <td class="ldata"><input type="text" class="input-large" id="name" name="name" value="<?php echo $name; ?>" /></td>
+            </tr>	
+            <tr>
+                <td class="label">Your e-mailaddress</td>
+                <td class="ldata"><input type="text" class="input-large" id="email" name="email" value="<?php echo $email; ?>" /></td>
+            </tr>	
+            <tr style="vertical-align:top">
+                <td class="label">Your question or remark</td>
+                <td class="ldata"><textarea class="input-large" id="formtext" name="formtext" rows="6"><?php echo $formtext; ?></textarea></td>
+            </tr>	
+            <tr>
+                <td class="label">&nbsp;</td>
+                <td class="ldata"><input type="submit" class="button" name="mode" value="Submit" /></td>
+            </tr>	
+        </table>
+    </form>
+</div>
+<?php
+	}
+?>	

@@ -1,0 +1,105 @@
+<?php
+	// Get current viewModel
+	$_vm = $this->viewModel()->getCurrent()->getChildren();
+	$viewModel = $_vm[0];	// Gives the content
+	
+	// Start html
+	echo $this->doctype();
+	
+?>
+
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="verify-v1" content="sEL0vsTHkj/8jkBPAvLYs84TZ8CMYPxcpf2BGYuqPFc=">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Gezmo 3D</title>
+<?php
+		echo $this->headMeta()
+				->appendName( 'description', 'Gezmos Get Images Remotely' )
+				->appendName( 'keywords', 'Gezmo, Gimager')
+				->appendName( 'viewport', 'width=device-width, initial-scale=1.0' )
+				->appendName( 'format-detection', 'telephone=yes' )
+		;
+
+    	echo $this->headLink( array('rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => '/favicon.ico') )
+				->appendStylesheet( '/css/style.css' )
+		;
+
+		echo $this->headScript()
+//				->appendFile( '/js/modernizr.2.8.3.js' )
+				->appendFile( '/js/responsive-nav.js' )
+		;
+
+?>
+
+</head>
+
+<body>
+  	<div id="body-content">
+    
+<?php
+	if ( !$viewModel->noheader )
+	{
+?>
+        <header>
+			<div id='logo'>
+				<a href="/"><img src="/img/layout/logo.png" class="logo" alt="Gezmo 3D" title="Gezmo 3D" /></a>
+			</div>
+<?php
+		include '_menu.phtml';
+?>
+        </header>
+		<div class="clearboth"></div> 
+<?php
+	}
+?>      
+		<div id="content-left"> 
+        <section>
+			<article>
+				<div data-role="page" id="container">
+<?php
+			// Messages
+			if ( !empty($viewModel->flashMessages) ) $this->flashMessages( $viewModel->flashMessages );
+			if ( !empty($viewModel->errorMessages) ) $this->errorMessages( $viewModel->errorMessages );
+			if ( !empty($viewModel->missingFields) ) $this->missingFields( $viewModel->missingFields );
+
+			// Show content	
+			echo $this->content;
+?>
+        		</div>
+			</article>
+			<aside>
+ 	       </aside>
+    	</section>
+        </div>
+   		<div id="content-right"> 
+<?php
+				echo $viewModel->promoContent;
+?>		    
+        </div>
+		<div class="clearboth"></div> 
+   		<div id="content-footer"> 
+<?php
+		if ( !$viewModel->nohfooter )
+		{
+?>
+        <footer>
+            <p>&copy; <? echo date('Y') ?> Gezmo 3D &forall; &there4; &infin;</p>
+		</footer>
+        </div>
+<?php
+		}
+?>
+	</div>
+<?php
+		echo $this->inlineScript()
+				->appendFile( '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9') )
+		;
+?>
+<script>
+  var navigation = responsiveNav("#nav");
+</script>
+    
+</body>
+</html>

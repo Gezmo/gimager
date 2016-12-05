@@ -1,0 +1,18 @@
+.pagination {
+	width: 100%;
+	height: 24px;
+}
+
+.pagination ul {
+	text-align: center;
+}
+
+.pagination ul li {
+	list-style: none;
+	float: left;
+	margin: 8px;
+}
+
+.pagination .active {
+	font-weight: bold;
+}

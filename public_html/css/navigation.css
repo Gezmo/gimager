@@ -1,0 +1,48 @@
+.navigation {
+	background-color: #F5F5F5;
+	height: 24px;
+}
+
+.navigation .button, .navigation .button:hover {
+	float:left;
+	margin-right: 8px;
+	background:#F26A02;
+	padding: 2px 12px 2px 12px;
+	border-radius: 6px;
+	color:#FFFFFF;
+	font-size:13px;
+	font-weight:normal;
+}
+
+.navigation .clr {
+	clear:both;
+}
+
+.navigation-div {
+	background-color: #F5F5F5;
+	border-radius: 6px;
+	border: solid 1px #F26A02;
+    border-bottom:5px solid #F26A02;
+	padding: 4px;
+}
+
+.navigation-div th {
+	text-align: left;
+	border-bottom: solid 1px #F26A02;
+}
+
+.navigation-div td {
+	padding: 4px;
+}
+
+.navigation-div tr:hover {
+	background-color: #88ff88;
+}
+
+.navigation-div .admin {
+	background-color: #ff9999;
+}
+
+.navigation-div .disabled {
+	background-color: #cccccc;
+}

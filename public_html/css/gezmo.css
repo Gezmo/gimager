@@ -1,0 +1,175 @@
+@charset "UTF-8";
+* {
+	margin:0;
+	padding:0;
+}
+
+html, body {
+	margin:0px auto;	
+/*	background-color: #f4fff7; */
+/*	background-image:url(gpngs/bgbody-gezmo.png);
+	background-repeat:repeat-y;
+	background-position:center;
+	min-width:1140px;*/
+	height:100%;
+	width: 100%;
+	padding-bottom:1px;
+}
+body {
+	font-family:Verdana, Trebuchet, Helvetica, Sans-Serif;
+	font-size:0.95em;
+}
+
+#body-content {
+	/*max-width: 1000px;*/
+	margin: 0 auto;
+}
+
+#content-left {
+	/*min-width: 320px;*/
+	width: 75%;
+	margin: 0 auto;
+	float: left
+}
+ 
+#content-right {
+	/*min-width: 320px;*/
+	width: 25%;
+	margin: 0 auto;
+	float: left;
+}
+ 
+header {
+	/*background-color: #96F;*/
+	/*border-bottom: 1px solid #9999FF;*/
+}
+
+section {
+	/*background-color: #0FF;*/
+	border-top: 1px solid #9999FF;
+	border-bottom: 1px solid #9999FF;
+	text-align:center;
+}
+
+article {
+	/*background-color: #3FC;*/
+	padding: 10px 20px;
+	margin: 0 auto;
+	/*max-width: 650px;*/
+	min-height: 500px;
+	/*float: left;*/
+	/*border-right: 1px solid #CCCCCC;*/
+	text-align: left;
+}
+
+
+aside {
+	/*background-color: #FFC;*/
+	padding: 10px 0px 10px 20px;
+	/*float: left;*/
+	text-align: left;
+}
+
+footer {
+	/*background-color: #9C3;*/
+	/*border-top: 1px solid #CCCCCC;*/
+	padding: 10px 40px 10px 40px;
+}
+
+p {
+	margin-bottom: 10px;
+}
+
+img {
+	max-width: 100%;
+	border: 0;
+	height: auto;
+	padding: 1%;
+}
+
+img .inline {
+	alignment-baseline:central;
+}
+#homeimg {
+	height: auto;
+}
+
+.respimg {
+	float: left;
+	height: auto;
+	width: 100%
+}
+
+.respimg2 {
+	float: left;
+	height: auto;
+	width: 47%
+}
+
+#dialog-confirm {
+	display:none;
+	visibility:hidden;
+}
+
+	#wrapp {
+		width:1140px;			
+		min-height:100%;
+		height:auto !important; /* modern browsers */
+		height:100%; /* fix for IE */
+		margin:0px auto;
+	}
+/* ---------------- */
+/*      HEADER      */
+/* ---------------- */
+
+/* header-top */
+#header {
+	height:90px;
+	background-image:url(gjpgs/header_gezmo.jpg);
+	background-repeat:no-repeat;
+}
+#logo {
+	max-width: 196px;
+	float: left;
+	width: 20%;
+}
+.logo {
+	width: 100%;
+	min-width: 125px;
+}
+	
+#homecontent {
+	position:relative;
+	top:0px;
+	text-align: center
+}
+
+#content {
+	position:relative;
+	top:0px;
+}
+
+a:link, a:visited {
+	color:#006600;
+	text-decoration:none;
+}
+a:hover {
+		color:#058270;
+		text-decoration:none;
+}
+a:active {
+		color:#0000ff;
+		text-decoration:none;
+}
+
+
+.gezmo {
+	font-family: Verdana, Geneva, sans-serif;
+}
+.navi {
+	text-align: center;
+}
+
+.clearboth {
+	clear: both;
+}
