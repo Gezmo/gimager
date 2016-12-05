@@ -1,0 +1,23 @@
+<?php
+$title = 'All images';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('gimager', array('action'=>'add'));?>">Add new image</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Title</th>
+    <th>URL</th>
+    <th>Status</th>
+</tr>
+<?php foreach ($gimagers as $gimager) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($gimager->title);?></td>
+    <td><?php echo $this->escapeHtml($gimager->url);?></td>
+    <td><?php echo $this->escapeHtml($gimager->state);?></td>
+</tr>
+<?php endforeach; ?>
+</table>

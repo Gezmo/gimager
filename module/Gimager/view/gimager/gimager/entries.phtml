@@ -1,0 +1,21 @@
+<?php
+$title = 'All process entries';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<table class="table">
+<tr>
+    <th>id</th>
+    <th>gimager_id</th>
+    <th>multiplier</th>
+    <th>executed</th>
+</tr>
+<?php foreach ($processEntries as $entry) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($entry->id);?></td>
+    <td><?php echo $this->escapeHtml($entry->gimager_id);?></td>
+    <td><?php echo $this->escapeHtml($entry->executionMultiplier);?></td>
+    <td><?php echo $this->escapeHtml($entry->executed);?></td>
+</tr>
+<?php endforeach; ?>
+</table>
