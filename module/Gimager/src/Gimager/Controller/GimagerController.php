@@ -111,7 +111,7 @@ class GimagerController extends AbstractActionController
 
     public function processAction()
     {
-        $amount = (int) $this->params()->fromRoute('amount', 1);
+        $amount = (int) $this->params()->fromRoute('id', 1);
 		$entries =  $this->getProcessQueueTable()->getEntries($amount);
 		foreach($entries AS $entry)
 		{
@@ -119,7 +119,7 @@ class GimagerController extends AbstractActionController
 			$checkedUrl = $this->checkUrl($gimager->url);
 			//@todo add results of check to gimager and store
 			//@todo update process queue. On failure use executionMultiplier to set new execution timestamp
-			
+			$gimagers[] = $gimager;
 		}
         return new ViewModel(array(
             'gimagers' => $gimagers,

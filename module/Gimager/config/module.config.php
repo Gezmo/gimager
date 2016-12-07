@@ -10,7 +10,7 @@ return array(
             'gimager' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/gimager[/:action][/:id]',
+                    'route'    => '/gimager[/:action[/:id]]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',

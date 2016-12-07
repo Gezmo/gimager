@@ -51,6 +51,16 @@ class ProcessQueueTable
         return $row;
     }
 
+    public function fetchByGimagerid($gimager_id)
+    {
+        $rowset = $this->tableGateway->select(array('gimager_id' => $gimager_id));
+        $row = $rowset->current();
+        if (!$row) {
+            return false;
+        }
+        return $row;
+    }
+
     public function saveProcessQueue(ProcessQueue $ProcessQueue)
     {
         $data = array(
@@ -61,6 +71,11 @@ class ProcessQueueTable
         );
 
         $id = (int)$ProcessQueue->id;
+		$idExists = $this->fetchByGimagerid($data['gimager_id']);
+		if ($idExists)
+		{
+			$id = $idExists->id;
+		}
         if ($id == 0) {
             $this->tableGateway->insert($data);
         	$id = $this->tableGateway->getLastInsertValue();

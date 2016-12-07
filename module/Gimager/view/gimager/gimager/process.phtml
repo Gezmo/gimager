@@ -11,13 +11,13 @@ $this->headTitle($title);
 <tr>
     <th>Title</th>
     <th>URL</th>
-    <th>Status</th>
+    <th>State</th>
 </tr>
 <?php foreach ($gimagers as $gimager) : ?>
 <tr>
     <td><?php echo $this->escapeHtml($gimager->title);?></td>
     <td><?php echo $this->escapeHtml($gimager->url);?></td>
-    <td><?php echo $this->escapeHtml($gimager->state);?></td>
+    <td><?php echo $this->escapeHtml($gimager->latestState);?></td>
 </tr>
 <?php endforeach; ?>
 </table>

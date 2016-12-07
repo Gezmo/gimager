@@ -14,13 +14,17 @@ namespace GimagerRest\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
+use Zend\Validator\Uri;
 use Gimager\Form\GimagerForm;
 use Gimager\Model\Gimager;
 use Gimager\Model\GimagerTable;
+use Gimager\Model\ProcessQueue;
+use Gimager\Model\ProcessQueueTable;
 
 class GimagerRestController extends AbstractRestfulController
 {
     protected $gimagerTable;
+    protected $processQueueTable;
 	
 	public function getList()
 	{
@@ -45,24 +49,34 @@ class GimagerRestController extends AbstractRestfulController
 		if (isset($data['csv']))
 		{
 			$fieldName[0] = 'title';
-			$fieldName[1] = 'url';
+			$fieldName[1] = 'urlSubmitted';
 			$fieldName[2] = 'description';
 			$fieldname[3] = 'comment';
 			
 			$csvLines = preg_split("/\\r\\n|\\r|\\n/", $data['csv']);
 			$delimiter = $this->findDelimiter($csvLines);
+			if ($delimiter === false)
+			{
+				// do not save if image has no name
+				$lineError[0] = "Error: No valid delimiter found, use , ; or |";
+				return new JsonModel(array("error" => $lineError));
+			}
 			$numberOfDelimiters = substr_count($csvLines[0], $delimiter);
 			$lineError = array();
+			$gimager = new Gimager();
+			$processQueue = new ProcessQueue();
+			$linecounter = 0;
 			foreach($csvLines AS $key => $line)
 			{
+				$linecounter++;
 				// first line is a header, skip!
-				if($key > 0)
+				if($linecounter > 1)
 				{
 					// the assumption is that all lines must have the same number of fields
 					// this will break if the delimiter is also used as part of a field
 					if ($numberOfDelimiters != substr_count($line, $delimiter) )
 					{
-						$lineError[$key] = "Error on line ".$key+1;
+						$lineError[$linecounter] = "Error on line ".$linecounter.": wrong number of fields";
 					}
 					else
 					{
@@ -71,16 +85,35 @@ class GimagerRestController extends AbstractRestfulController
 						$gimagerData = array();
 						foreach ($lineData AS $field)
 						{
-							$gimagerData[$fieldName[$fieldCounter]] = $field;
-							if ($fieldName[$fieldCounter] == 'url')
+							$gimagerData[$fieldName[$fieldCounter]] = trim(strip_tags($field));
+							if (strlen($gimagerData[$fieldName[$fieldCounter]]) == 0)
 							{
-								$gimagerData['urlSubmitted'] = trim(strip_tags($field));
+									// do not save if image has no name
+									$lineError[$linecounter] = "Error on line ".$linecounter.": Image has no name";
+									break;
+							}
+							if ($fieldName[$fieldCounter] == 'urlSubmitted')
+							{
+								$UriValidator = new \Zend\Validator\Uri();
+								if (!$UriValidator->isValid(trim(strip_tags($field))))
+								{
+									// do not save if Url is unvalid
+									$lineError[$linecounter] = "Error on line ".$linecounter.": Invalid url";
+									break;
+								}
 							}
 							$fieldCounter++;
 						}
-						$gimager = new Gimager();
 						$gimager->exchangeArray($gimagerData);
 						$id = $this->getGimagerTable()->saveGimager($gimager);
+						$_now = new \DateTime();
+						$now = $_now->format('Y-m-d H:i:s');
+						$processData['gimager_id'] = $id;
+						$processData['nextExecution'] = $now;
+						$processData['executionMultiplier'] = 64;
+						$processData['executed'] = 0;
+						$processQueue->exchangeArray($processData);
+						$this->getProcessQueueTable()->saveProcessQueue($processQueue);
 						//@todo store id in process_queue so we can retreive the image
 					}
 				}
@@ -135,6 +168,15 @@ class GimagerRestController extends AbstractRestfulController
 		return $this->gimagerTable;
 	}
 
+	public function getProcessQueueTable()
+	{
+		if (!$this->processQueueTable) {
+			$sm = $this->getServiceLocator();
+			$this->processQueueTable = $sm->get('Gimager\Model\ProcessQueueTable');
+		}
+		return $this->processQueueTable;
+	}
+
 	public function deleteList()
 	{
 		$response = $this->getResponse();
@@ -161,18 +203,19 @@ class GimagerRestController extends AbstractRestfulController
 		$komma1 = substr_count($data[1], ',');
 		$semicolon1 = substr_count($data[1], ';');
 		$pipe1 = substr_count($data[1], '|');
-		if($komma0 == $komma1)
+		if($komma0 AND $komma0 == $komma1)
 		{
 			return ',';
 		}
-		if($semicolon0 == $semicolon1)
+		if($semicolon0 AND $semicolon0 == $semicolon1)
 		{
 			return ';';
 		}
-		if ($pipe0 == $pipe1)
+		if ($pipe0 AND $pipe0 == $pipe1)
 		{
 			return '|';
 		}
+		return false;
 	}
 	
 }
