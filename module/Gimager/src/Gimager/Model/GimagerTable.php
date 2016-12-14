@@ -44,6 +44,7 @@ class GimagerTable
         $data = array(
             'localCopy'  => $gimager->localCopy,
             'latestState'  => $gimager->latestState,
+            'stateDate'  => $gimager->stateDate,
             'title'  => $gimager->title,
             'url' => $gimager->url,
             'urlSubmitted'  => $gimager->urlSubmitted,

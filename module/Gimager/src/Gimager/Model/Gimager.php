@@ -20,6 +20,7 @@ class Gimager implements InputFilterAwareInterface
         $this->id     = (isset($data['id']))     ? $data['id']     : null;
         $this->localCopy     = (isset($data['localCopy']))     ? $data['localCopy']     : null;
         $this->latestState     = (isset($data['latestState']))     ? $data['latestState']     : null;
+        $this->stateDate     = (isset($data['stateDate']))     ? $data['stateDate']     : "0000-00-00 00:00:00";
         $this->title  = (isset($data['title']))  ? $data['title']  : null;
         $this->url = (isset($data['url'])) ? $data['url'] : null;
         $this->urlSubmitted = (isset($data['urlSubmitted'])) ? $data['urlSubmitted'] : null;
